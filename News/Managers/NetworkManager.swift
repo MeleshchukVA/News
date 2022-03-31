@@ -8,6 +8,7 @@
 import UIKit
 
 class NetworkManager {
+    
     static let shared = NetworkManager()
     let cache = NSCache<NSString, UIImage>()
     let decoder = JSONDecoder()
