@@ -11,6 +11,12 @@ class NewsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureViewController()
+    }
+    
+    private func configureViewController() {
+        view.backgroundColor = .systemBackground
+        title = "News"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

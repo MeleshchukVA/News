@@ -14,6 +14,7 @@
 		3F7112C627F5FC3E00E0174D /* NewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7112C527F5FC3E00E0174D /* NewsListViewController.swift */; };
 		3F7112C827F5FC6900E0174D /* ArticleInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7112C727F5FC6900E0174D /* ArticleInfoViewController.swift */; };
 		3F7112CA27F5FC8E00E0174D /* BookmarksListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7112C927F5FC8E00E0174D /* BookmarksListViewController.swift */; };
+		3F7112CE27F5FE7000E0174D /* NewsTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7112CD27F5FE7000E0174D /* NewsTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		3F7112C527F5FC3E00E0174D /* NewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsListViewController.swift; sourceTree = "<group>"; };
 		3F7112C727F5FC6900E0174D /* ArticleInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleInfoViewController.swift; sourceTree = "<group>"; };
 		3F7112C927F5FC8E00E0174D /* BookmarksListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksListViewController.swift; sourceTree = "<group>"; };
+		3F7112CD27F5FE7000E0174D /* NewsTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +60,9 @@
 		3F7112AE27F5D64A00E0174D /* News */ = {
 			isa = PBXGroup;
 			children = (
-				3F7112C427F5FB5500E0174D /* ViewControllers */,
+				3F7112CB27F5FE2A00E0174D /* CustomViews */,
 				3F7112C327F5DB7600E0174D /* Support */,
+				3F7112C427F5FB5500E0174D /* ViewControllers */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -84,6 +87,22 @@
 				3F7112C527F5FC3E00E0174D /* NewsListViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3F7112CB27F5FE2A00E0174D /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				3F7112CC27F5FE3600E0174D /* TabBarController */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		3F7112CC27F5FE3600E0174D /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				3F7112CD27F5FE7000E0174D /* NewsTabBarController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F7112CE27F5FE7000E0174D /* NewsTabBarController.swift in Sources */,
 				3F7112C627F5FC3E00E0174D /* NewsListViewController.swift in Sources */,
 				3F7112C827F5FC6900E0174D /* ArticleInfoViewController.swift in Sources */,
 				3F7112CA27F5FC8E00E0174D /* BookmarksListViewController.swift in Sources */,
