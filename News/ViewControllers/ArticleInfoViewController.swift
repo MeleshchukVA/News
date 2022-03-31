@@ -8,9 +8,8 @@
 import UIKit
 
 class ArticleInfoViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 }

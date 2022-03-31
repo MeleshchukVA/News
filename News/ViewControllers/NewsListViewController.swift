@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsListViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()

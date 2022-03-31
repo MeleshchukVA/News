@@ -8,7 +8,7 @@
 import UIKit
 
 class BookmarksListViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
