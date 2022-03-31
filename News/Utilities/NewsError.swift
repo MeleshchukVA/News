@@ -14,4 +14,3 @@ enum NewsError: String, Error {
     case unableAddToBookmarks = "There was an error added this article. Please try again."
     case alreadyInBookmarks = "You're already added this bookmark."
 }
-
