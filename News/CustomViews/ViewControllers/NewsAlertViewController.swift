@@ -63,7 +63,7 @@ class NewsAlertViewController: UIViewController {
     }
     
     func configureMessageLabel() {
-        messageLabel.text = message ?? "Unable to complete request"
+        messageLabel.text = message ?? "Unable to complete request."
         messageLabel.numberOfLines = 4
 
         NSLayoutConstraint.activate([

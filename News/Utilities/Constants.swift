@@ -10,3 +10,7 @@ import UIKit
 enum Images {
     static let placeholder = UIImage(named: "placeholder-image")
 }
+
+enum Strings {
+    static let placeholderUrlImage = "https://disk.yandex.ru/i/-wthfj-whHt92w"
+}
