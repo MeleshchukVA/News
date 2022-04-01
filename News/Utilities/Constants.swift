@@ -12,5 +12,5 @@ enum Images {
 }
 
 enum Strings {
-    static let placeholderUrlImage = "https://disk.yandex.ru/i/-wthfj-whHt92w"
+    static let placeholderUrlImage = "https://i.postimg.cc/zDpnNFxG/placeholder-image-2x.png"
 }
