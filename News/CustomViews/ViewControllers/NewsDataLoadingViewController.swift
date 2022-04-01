@@ -44,4 +44,3 @@ class NewsDataLoadingViewController: UIViewController {
         }
     }
 }
-
