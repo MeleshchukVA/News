@@ -13,7 +13,7 @@ struct News: Codable {
 
 struct Article: Codable, Hashable {
     var author: String?
-    var title: String
+    let title: String
     var description: String?
     var url: String?
     var urlToImage: String?
