@@ -8,9 +8,9 @@
 import Foundation
 
 enum NewsError: String, Error {
-    case unableToComplete = "Unable to complete your request. Please check your internet connection."
-    case invalidResponce = "Invalid responce from the server. Please try again."
-    case invalidData = "The data received from the server is invalid. Please try again."
-    case unableAddToBookmarks = "There was an error added this article. Please try again."
-    case alreadyInBookmarks = "You're already added this bookmark."
+    case unableToComplete = "Невозможно завершить ваш запрос. Проверьте подключение к сети интернет."
+    case invalidResponce = "Ошибка соединения с сервером. Попробуйте еще раз."
+    case invalidData = "Некорректные данные от сервера. Попробуйте еще раз."
+    case unableAddToBookmarks = "Ошибка при добавлении в закладки. Попробуйте еще раз."
+    case alreadyInBookmarks = "Вы уже добавили эту новость в закладки."
 }

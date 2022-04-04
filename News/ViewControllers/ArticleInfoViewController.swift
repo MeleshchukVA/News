@@ -8,7 +8,7 @@
 import UIKit
 import SafariServices
 
-class ArticleInfoViewController: UIViewController {
+class ArticleInfoViewController: NewsDataLoadingViewController {
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -42,12 +42,47 @@ class ArticleInfoViewController: UIViewController {
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
+        
         let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismssVC))
         navigationItem.rightBarButtonItem = doneButton
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.leftBarButtonItem = addButton
     }
     
     @objc func dismssVC() {
         dismiss(animated: true)
+    }
+    
+    @objc func addButtonTapped() {
+        showLoadingView()
+        
+        NetworkManager.shared.getArticleInfo { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let bookmark):
+                self.addArticleToBookmarks(bookmark: bookmark)
+                
+            case .failure(let error):
+                self.presentNewsAlert(title: "Что-то пошло не так.", message: error.rawValue, buttonTitle: "Ок")
+            }
+        }
+    }
+    
+    func addArticleToBookmarks(bookmark: [Article]) {
+        let bookmark = Article(title: article.title, url: article.url)
+        
+        PersistenceManager.updateWith(bookmark: bookmark, actionType: .add) { [weak self] error in
+            guard let self = self else { return }
+            
+            guard let error = error else {
+                self.presentNewsAlert(title: "Добавлено!", message: "Вы добавили эту новость в закладки.", buttonTitle: "Ок")
+                return
+            }
+            self.presentNewsAlert(title: "Что-то пошло не так.", message: error.rawValue, buttonTitle: "Ок")
+        }
     }
     
     func configureUIElements() {
@@ -59,7 +94,7 @@ class ArticleInfoViewController: UIViewController {
         descriptionLabel.text = article.description ?? "Читайте подробности на сайте."
         descriptionLabel.numberOfLines = 5
         
-        authorLabel.text = article.author ?? "Автор неизвестен"
+        authorLabel.text = article.author ?? "Автор не указан."
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .byTruncatingTail
         
