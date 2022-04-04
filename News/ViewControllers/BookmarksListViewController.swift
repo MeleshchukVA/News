@@ -21,7 +21,7 @@ class BookmarksListViewController: NewsDataLoadingViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getFavorites()
+        getBookmarks()
     }
     
     private func configureViewController() {
@@ -42,7 +42,7 @@ class BookmarksListViewController: NewsDataLoadingViewController {
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.reuseID)
     }
 
-    private func getFavorites() {
+    private func getBookmarks() {
         PersistenceManager.retrieveBookmarks { [weak self] result in
             guard let self = self else { return }
 
@@ -115,6 +115,8 @@ extension BookmarksListViewController: UITableViewDelegate {
         }
         
         // Отображает EmptyStateView, когда все ячейки удалены.
-        getFavorites()
+        if bookmarks.isEmpty {
+            showEmptyStateView(with: "Здесь отображаются ваши закладки.", in: self.view)
+        }
     }
 }
