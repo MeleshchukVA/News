@@ -16,7 +16,7 @@ class BookmarksListViewController: UIViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = "Bookmarks"
+        title = "Закладки"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

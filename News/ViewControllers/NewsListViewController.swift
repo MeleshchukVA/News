@@ -33,7 +33,7 @@ class NewsListViewController: NewsDataLoadingViewController {
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = "News"
+        title = "Новости"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

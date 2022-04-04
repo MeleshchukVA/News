@@ -27,7 +27,7 @@ class ArticleInfoViewController: UIViewController {
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(dismssVC))
+        let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismssVC))
         navigationItem.rightBarButtonItem = doneButton
     }
     
