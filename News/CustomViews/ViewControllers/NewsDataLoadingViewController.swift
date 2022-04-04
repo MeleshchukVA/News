@@ -43,4 +43,10 @@ class NewsDataLoadingViewController: UIViewController {
             self.containerView = nil
         }
     }
+    
+    func showEmptyStateView(with message: String, in view: UIView) {
+        let emptyStateView = NewsEmptyStateView(message: message)
+        emptyStateView.frame = view.bounds
+        view.addSubview(emptyStateView)
+    }
 }
