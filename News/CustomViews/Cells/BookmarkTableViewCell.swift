@@ -9,7 +9,7 @@ import UIKit
 
 class BookmarkTableViewCell: UITableViewCell {
     static let reuseID = "BookmarkCell"
-    let titleLabel = NewsTitleLabel(textAlignment: .left, fontSize: 26)
+    let titleLabel = NewsTitleLabel(textAlignment: .left, fontSize: 18)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -34,7 +34,7 @@ class BookmarkTableViewCell: UITableViewCell {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40)
+            titleLabel.heightAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
