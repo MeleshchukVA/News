@@ -24,8 +24,7 @@ class NewsTabBarController: UITabBarController {
 
     func createBookmarksNavigationController() -> UINavigationController {
         let bookmarksListViewController = BookmarksListViewController()
-        bookmarksListViewController.title = "Закладки"
-        bookmarksListViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        bookmarksListViewController.tabBarItem = UITabBarItem(title: "Закладки", image: UIImage(systemName: "book"), tag: 0)
 
         return UINavigationController(rootViewController: bookmarksListViewController)
     }

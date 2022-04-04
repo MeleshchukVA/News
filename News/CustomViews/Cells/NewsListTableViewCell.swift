@@ -25,7 +25,7 @@ class NewsListTableViewCell: UITableViewCell {
     }
 
     func setupCell(article: Article) {
-        newsImageView.downloadImage(fromURL: article.urlToImage ?? Strings.placeholderUrlImage)
+        newsImageView.downloadImage(fromURL: article.urlToImage ?? UrlStrings.placeholderUrlImage)
         newsTitleLabel.text = article.title
     }
 
