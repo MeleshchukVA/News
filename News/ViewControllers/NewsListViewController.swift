@@ -133,4 +133,13 @@ extension NewsListViewController: UITableViewDelegate {
             getArticles(page: page)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let article = articles[indexPath.row]
+        let destinationViewController = ArticleInfoViewController(article: article)
+        let navigationController = UINavigationController(rootViewController: destinationViewController)
+        present(navigationController, animated: true)
+    }
 }
