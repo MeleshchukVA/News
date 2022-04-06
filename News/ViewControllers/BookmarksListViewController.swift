@@ -51,7 +51,7 @@ class BookmarksListViewController: NewsDataLoadingViewController {
                 self.updateUI(with: bookmarks)
 
             case .failure(let error):
-                self.presentNewsAlert(title: "Что-то пошло не так.", message: error.rawValue, buttonTitle: "Ок")
+                self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
             }
         }
     }

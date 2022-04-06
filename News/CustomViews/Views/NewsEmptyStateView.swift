@@ -47,16 +47,16 @@ class NewsEmptyStateView: UIView {
     }
 
     private func configureLogoImageView() {
-        logoImageView.image = UIImage(systemName: "books.verical")
+        logoImageView.image = UIImage(systemName: "books.vertical", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemGray4))
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
 
 //        let logoBottomConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
 
         NSLayoutConstraint.activate([
-            logoImageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.3),
-            logoImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1.3),
-            logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 170),
-            logoImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 40)
+            logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10),
+            logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 100),
+            logoImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -100),
+            logoImageView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 }

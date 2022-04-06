@@ -66,7 +66,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
                 self.addArticleToBookmarks(bookmark: bookmark)
                 
             case .failure(let error):
-                self.presentNewsAlert(title: "Что-то пошло не так.", message: error.rawValue, buttonTitle: "Ок")
+                self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
             }
         }
     }
@@ -78,10 +78,10 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                self.presentNewsAlert(title: "Добавлено!", message: "Вы добавили эту новость в закладки.", buttonTitle: "Ок")
+                self.presentNewsAlert(title: "Добавлено", message: "Вы добавили эту новость в закладки.", buttonTitle: "Ок")
                 return
             }
-            self.presentNewsAlert(title: "Что-то пошло не так.", message: error.rawValue, buttonTitle: "Ок")
+            self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
         }
     }
     
@@ -94,7 +94,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         descriptionLabel.text = article.description ?? "Читайте подробности на сайте."
         descriptionLabel.numberOfLines = 5
         
-        authorLabel.text = article.author ?? "Автор не указан."
+        authorLabel.text = article.author ?? "Автор не указан"
         authorLabel.numberOfLines = 1
         authorLabel.lineBreakMode = .byTruncatingTail
         
