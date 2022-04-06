@@ -9,6 +9,7 @@ import UIKit
 
 extension UIView {
     
+    // Фнукция распределяет view по всем экрану.
     func pinToEdges(of superview: UIView) {
         translatesAutoresizingMaskIntoConstraints = false
 

@@ -10,18 +10,21 @@ import SafariServices
 
 class ArticleInfoViewController: NewsDataLoadingViewController {
     
+    // MARK: - Properties.
+
     let scrollView = UIScrollView()
     let contentView = UIView()
-    let stackView = UIStackView()
+    let labelsStackView = UIStackView()
     var imageView = NewsImageView(frame: .zero)
     let titleLabel = NewsTitleLabel(textAlignment: .left, fontSize: 20)
     let descriptionLabel = NewsTitleLabel(textAlignment: .left, fontSize: 15)
     let authorLabel = NewsBodyLabel(textAlignment: .left)
     let dateLabel = NewsBodyLabel(textAlignment: .left)
     let sourceButton = NewsButton(color: .systemBlue, title: "Источник")
-    
     var article: Article!
     
+    // MARK: - Initializers.
+
     init(article: Article) {
         super.init(nibName: nil, bundle: nil)
         self.article = article
@@ -31,30 +34,35 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle.
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureViewController()
         configureScrollView()
-        layoutUI()
+        configureLayout()
         configureUIElements()
         configureStackView()
     }
     
-    func configureViewController() {
+    // MARK: - Private methods.
+    
+    private func configureViewController() {
         view.backgroundColor = .systemBackground
         
         let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismssVC))
         navigationItem.rightBarButtonItem = doneButton
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addButtonTapped))
         navigationItem.leftBarButtonItem = addButton
     }
     
-    @objc func dismssVC() {
+    @objc private func dismssVC() {
         dismiss(animated: true)
     }
     
-    @objc func addButtonTapped() {
+    @objc private func addButtonTapped() {
         showLoadingView()
         
         NetworkManager.shared.getArticleInfo { [weak self] result in
@@ -71,7 +79,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         }
     }
     
-    func addArticleToBookmarks(bookmark: [Article]) {
+    private func addArticleToBookmarks(bookmark: [Article]) {
         let bookmark = Article(title: article.title, url: article.url)
         
         PersistenceManager.updateWith(bookmark: bookmark, actionType: .add) { [weak self] error in
@@ -85,38 +93,27 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         }
     }
     
-    func configureUIElements() {
+    private func configureUIElements() {
         imageView.downloadImage(fromURL: article.urlToImage ?? UrlStrings.placeholderUrlImage)
-        
         titleLabel.text = article.title
-        titleLabel.numberOfLines = 4
-        
         descriptionLabel.text = article.description ?? "Читайте подробности на сайте."
-        descriptionLabel.numberOfLines = 5
-        
         authorLabel.text = article.author ?? "Автор не указан"
-        authorLabel.numberOfLines = 1
-        authorLabel.lineBreakMode = .byTruncatingTail
-        
-        sourceButton.addTarget(self, action: #selector(sourceButtonTapped), for: .touchUpInside)
-        
         dateLabel.text = (article.publishedAt?.convertToDisplayFormat() ?? "N/A")
+        sourceButton.addTarget(self, action: #selector(sourceButtonTapped), for: .touchUpInside)
     }
     
-    @objc func sourceButtonTapped() {
+    @objc private func sourceButtonTapped() {
         presentSafariVC(for: article)
     }
     
-    func presentSafariVC(for article: Article) {
-        guard let url = URL(string: article.url ?? UrlStrings.urlNotFound) else {
-            return
-        }
+    private func presentSafariVC(for article: Article) {
+        guard let url = URL(string: article.url ?? UrlStrings.urlNotFound) else { return }
         
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)
     }
     
-    func configureScrollView() {
+    private func configureScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         scrollView.pinToEdges(of: view)
@@ -128,20 +125,17 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         ])
     }
     
-    func configureStackView() {
-        stackView.axis = .vertical
-        stackView.distribution = .equalCentering
+    private func configureStackView() {
+        labelsStackView.axis = .vertical
+        labelsStackView.distribution = .equalCentering
 
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(descriptionLabel)
-        stackView.addArrangedSubview(authorLabel)
-        stackView.addArrangedSubview(dateLabel)
+        labelsStackView.addSubviews(titleLabel, descriptionLabel, authorLabel, dateLabel)
+        labelsStackView.translatesAutoresizingMaskIntoConstraints = false
         
         let padding: CGFloat = 20
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: labelsStackView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
 
@@ -149,7 +143,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
 
-            authorLabel.topAnchor.constraint(equalTo: descriptionLabel.text == "" ? titleLabel.bottomAnchor : descriptionLabel.bottomAnchor, constant: padding),
+            authorLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
 
@@ -159,14 +153,11 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         ])
     }
     
-    func layoutUI() {
-        let padding: CGFloat = 20
-        
-        contentView.addSubview(imageView)
-        contentView.addSubview(stackView)
-        contentView.addSubview(sourceButton)
-        
+    private func configureLayout() {
+        contentView.addSubviews(imageView, labelsStackView, sourceButton)
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let padding: CGFloat = 20
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
@@ -174,12 +165,12 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 300),
             
-            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: padding),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            stackView.heightAnchor.constraint(equalToConstant: 280),
+            labelsStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: padding),
+            labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            labelsStackView.heightAnchor.constraint(equalToConstant: 300),
             
-            sourceButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: padding),
+            sourceButton.topAnchor.constraint(equalTo: labelsStackView.bottomAnchor, constant: padding),
             sourceButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             sourceButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             sourceButton.heightAnchor.constraint(equalToConstant: 50)

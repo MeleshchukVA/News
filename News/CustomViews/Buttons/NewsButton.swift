@@ -18,7 +18,7 @@ class NewsButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // Задаем кастомные тайтл и цвет кнопки.
+    // Задаем кастомные цвет и тайтл кнопки.
     convenience init(color: UIColor, title: String) {
         self.init(frame: .zero)
         set(color: color, title: title)
@@ -32,7 +32,7 @@ class NewsButton: UIButton {
     }
 
     // Задаем все кастомные настройки.
-    func set(color: UIColor, title: String) {
+    private func set(color: UIColor, title: String) {
         configuration?.baseBackgroundColor = color
         configuration?.baseForegroundColor = color
         configuration?.title = title

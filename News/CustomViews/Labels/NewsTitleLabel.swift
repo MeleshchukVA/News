@@ -18,8 +18,6 @@ class NewsTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // сonvenience позволяет не вызывать дважды функцию configure() в override и в init.
-    // Также позволяет установить дефолтные значения для init.
     convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
@@ -31,7 +29,7 @@ class NewsTitleLabel: UILabel {
         numberOfLines = 4
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
-        lineBreakMode = .byTruncatingTail // Чтобы были точки, если надпись длинная.
+        lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false
     }
 }

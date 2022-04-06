@@ -9,7 +9,6 @@ import UIKit
 
 class NewsListTableViewCell: UITableViewCell {
     
-    let stackView = UIStackView()
     let newsImageView = NewsImageView(frame: .zero)
     let newsTitleLabel = NewsTitleLabel(textAlignment: .left, fontSize: 18)
     

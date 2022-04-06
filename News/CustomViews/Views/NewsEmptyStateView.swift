@@ -36,8 +36,6 @@ class NewsEmptyStateView: UIView {
         messageLabel.numberOfLines = 3
         messageLabel.textColor = .secondaryLabel
 
-//        let labelCenterYConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? -90 : -150
-
         NSLayoutConstraint.activate([
             messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -150),
             messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
@@ -49,8 +47,6 @@ class NewsEmptyStateView: UIView {
     private func configureLogoImageView() {
         logoImageView.image = UIImage(systemName: "books.vertical", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemGray4))
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-
-//        let logoBottomConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8Zoomed ? 80 : 40
 
         NSLayoutConstraint.activate([
             logoImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10),

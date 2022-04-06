@@ -17,7 +17,8 @@ class NetworkManager {
     private let apiKey = "e8dc364306c14351bda035195d810b5c"
 
     private init() {}
-
+    
+    // Функция загружает массив [Article] с учетом постраничной загрузки и декодирует его в JSON.
     func retrieveArticles(page: Int, completion: @escaping (Result<[Article], NewsError>) -> Void) {
         let endpoint = baseURL + "&page=\(page)" + "&apiKey=\(apiKey)"
         
@@ -53,10 +54,11 @@ class NetworkManager {
         task.resume()
     }
     
+    // Функция загружает изображение с API
     func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
         let cacheKey = NSString(string: urlString)
 
-        // Кэшируем картинки, чтобы не делать каждый раз Network Call.
+        // Кэшируем картинки, чтобы не делать каждый раз запрос в сеть для них.
         if let image = cache.object(forKey: cacheKey) {
             completed(image)
             return
@@ -76,7 +78,7 @@ class NetworkManager {
                       completed(nil)
                       return
                   }
-
+            
             self.cache.setObject(image, forKey: cacheKey)
             completed(image)
         }
@@ -84,6 +86,7 @@ class NetworkManager {
         task.resume()
     }
     
+    // Функция обращается в сеть для сохранения новости с помощью UserDefaults.
     func getArticleInfo(completed: @escaping (Result<[Article], NewsError>) -> Void) {
         let endpoint = baseURL + "&pageSize=100" + "&apiKey=\(apiKey)"
         
@@ -110,8 +113,8 @@ class NetworkManager {
             }
             
             do {
-                let article = try self.decoder.decode(News.self, from: data)
-                completed(.success(article.articles))
+                let result = try self.decoder.decode(News.self, from: data)
+                completed(.success(result.articles))
             } catch {
                 completed(.failure(.invalidData))
             }

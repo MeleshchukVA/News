@@ -42,7 +42,7 @@ enum PersistenceManager {
             }
         }
     }
-
+    
     static func retrieveBookmarks(completed: @escaping (Result<[Article], NewsError>) -> Void) {
         guard let bookmarksData = defaults.object(forKey: Keys.bookmarks) as? Data else {
             completed(.success([]))

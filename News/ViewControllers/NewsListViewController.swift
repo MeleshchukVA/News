@@ -9,20 +9,24 @@ import UIKit
 
 class NewsListViewController: NewsDataLoadingViewController {
     
+    // MARK: - Properties.
+
     let tableView = UITableView()
     var articles: [Article] = []
     var page = 1
-    // Если новостей больше заданного числа (20), принимает true.
-    // Если меньше - false.
+    /// Если новостей больше заданного числа (20), принимает true.
+    /// Если меньше - false.
     var hasMoreArticles = true
-    // Отключает постраничную загрузку, если не завершили запрос в сеть.
-    // Включает, если завершили.
+    /// Отключает постраничную загрузку, если не завершили запрос в сеть.
+    /// Включает, если завершили.
     var isPaginating = false
-    // Отслеживает состояние UIRefreshControl.
-    // Если обновляем страницу с помощью pull to refresh, то принимает true.
-    // По окончании запроса в сеть принимает false.
+    /// Отслеживает состояние UIRefreshControl.
+    /// Если обновляем страницу с помощью pull to refresh, то принимает true.
+    /// По окончании запроса в сеть принимает false.
     var isRefreshing = false
     
+    // MARK: - Lifecycle.
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,6 +35,8 @@ class NewsListViewController: NewsDataLoadingViewController {
         getArticles(page: page)
     }
     
+    // MARK: - Private methods.
+
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Новости"
@@ -42,23 +48,24 @@ class NewsListViewController: NewsDataLoadingViewController {
         
         tableView.frame = view.bounds
         tableView.rowHeight = 120
-        
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.register(NewsListTableViewCell.self, forCellReuseIdentifier: NewsListTableViewCell.reuseID)
         
-        setupRefreshControl()
+        configureRefreshControl()
     }
     
-    private func setupRefreshControl() {
+    private func configureRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
-    @objc func didPullToRefresh() {
-        articles.removeAll()
+    @objc private func didPullToRefresh() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
+        self.articles.removeAll()
         isRefreshing = true
         isPaginating = false
         hasMoreArticles = true
@@ -80,7 +87,7 @@ class NewsListViewController: NewsDataLoadingViewController {
                 self.updateUI(with: articles)
                 
             case .failure(let error):
-                print(error)
+                self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
             }
             
             self.isPaginating = false
@@ -100,6 +107,8 @@ class NewsListViewController: NewsDataLoadingViewController {
     }
 }
 
+// MARK: - UITableViewDataSource.
+
 extension NewsListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,6 +126,8 @@ extension NewsListViewController: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: - UITableViewDelegate.
 
 extension NewsListViewController: UITableViewDelegate {
     

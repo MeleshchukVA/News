@@ -20,7 +20,7 @@ class BookmarkTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func set(bookmark: Article) {
+    func setupCell(bookmark: Article) {
         titleLabel.text = bookmark.title
     }
 

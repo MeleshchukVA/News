@@ -10,11 +10,16 @@ import SafariServices
 
 class BookmarksListViewController: NewsDataLoadingViewController {
     
+    // MARK: - Properties.
+    
     let tableView = UITableView()
     var bookmarks: [Article] = []
-
+    
+    // MARK: - Lifecycle.
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureViewController()
         configureTableView()
     }
@@ -23,6 +28,8 @@ class BookmarksListViewController: NewsDataLoadingViewController {
         super.viewWillAppear(animated)
         getBookmarks()
     }
+    
+    // MARK: - Private methods.
     
     private func configureViewController() {
         view.backgroundColor = .systemBackground
@@ -37,9 +44,8 @@ class BookmarksListViewController: NewsDataLoadingViewController {
         tableView.rowHeight = 80
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.removeExcessCells()
-
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.reuseID)
+        tableView.removeExcessCells()
     }
 
     private func getBookmarks() {
@@ -69,6 +75,8 @@ class BookmarksListViewController: NewsDataLoadingViewController {
     }
 }
 
+// MARK: - UITableViewDataSource.
+
 extension BookmarksListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,21 +89,19 @@ extension BookmarksListViewController: UITableViewDataSource {
             return cell
         }
         let bookmark = bookmarks[indexPath.row]
-        cell.set(bookmark: bookmark)
+        cell.setupCell(bookmark: bookmark)
         return cell
     }
 }
+
+// MARK: - UITableViewDelegate.
 
 extension BookmarksListViewController: UITableViewDelegate {
     
     // При нажатии на ячейку отображается SafariViewController.
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bookmark = bookmarks[indexPath.row]
-
-        guard let url = URL(string: bookmark.url ?? UrlStrings.urlNotFound) else {
-            return
-        }
-
+        guard let url = URL(string: bookmark.url ?? UrlStrings.urlNotFound) else { return }
         let safariViewController = SFSafariViewController(url: url)
         present(safariViewController, animated: true)
     }
