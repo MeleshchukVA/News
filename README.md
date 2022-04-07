@@ -1,5 +1,5 @@
 # News
-UIKit app for viewing Russian news.
+## UIKit app for viewing Russian news.
 
 <img src="https://user-images.githubusercontent.com/45876618/162014807-0fbaf1fe-1755-47a2-a344-39cad76ea857.png" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/45876618/162014911-6a88c623-ef48-4b9d-b752-43d856d68982.png" width="25%" height="25%">
 
@@ -9,12 +9,13 @@ UIKit app for viewing Russian news.
 
 <img src="https://user-images.githubusercontent.com/45876618/162014964-83ae3afb-7602-4b20-bab3-505e2c804351.png" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/45876618/162014966-ab831d42-47b7-484e-9d89-5f087b3eaf7a.png" width="25%" height="25%">
 
+### Основной стэк
+UIKit, TabBarController, NavigationController, TableView, UserDefaults, NSCache, SafariServices, SwiftLint, MVC
 
-Основной стэк: UIKit, TabBarController, NavigationController, TableView, UserDefaults, NSCache, SafariServices, MVC.
+### Краткое описание
+Приложение загружает из интернета и отображает новости России с возможностью добавления их в закладки и обновлением списка новостей.
 
-Краткое описание: Приложение загружает из интернета и отображает новости России с возможностью добавления их в закладки и обновлением списка новостей.
-
-Подробное описание:
+### Подробное описание
 1. Проект полностью написан на UIKit;
 2. Использована архитектура MVC;
 3. Использованы TabBarController, NavigationController;
@@ -29,10 +30,11 @@ UIKit app for viewing Russian news.
 12. Реализовано удаление новостей из закладок;
 13. Кастомный AlertViewController с обработками различных ошибок;
 14. Приложение проверено на утечки памяти;
-15. Добавлена иконка приложения.
+15. Использован SwiftLint для единого codestyle;
+16. Добавлена иконка приложения.
 
-Что еще планируется реализовать:
-
-1. Не всегда корректно обновляются изображения в ячейках TableView. Возможно, подберу сторонний фреймворк для облегчения работы;
-2. Избавиться от синглтонов, внедрить DI;
-3. Написать Unit/UI-тесты.
+### Что еще планируется реализовать/исправить
+1. Добавить счетчик просмотров для каждой новости;
+2. Не всегда корректно обновляются изображения в ячейках TableView. Возможно, подберу сторонний фреймворк для облегчения работы;
+3. Избавиться от синглтонов, внедрить DI;
+4. Написать Unit/UI-тесты.
