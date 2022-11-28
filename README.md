@@ -9,6 +9,8 @@
 
 <img src="https://user-images.githubusercontent.com/45876618/162014964-83ae3afb-7602-4b20-bab3-505e2c804351.png" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/45876618/162014966-ab831d42-47b7-484e-9d89-5f087b3eaf7a.png" width="25%" height="25%">
 
+<img src="https://user-images.githubusercontent.com/45876618/204301590-89e4c099-cfdd-47b8-93e4-1ff35746dd41.png" width="25%" height="25%"> <img src="https://user-images.githubusercontent.com/45876618/204301601-6112353c-7599-4283-9c5c-c96d67dc05dc.png" width="25%" height="25%">
+
 ### Основной стэк
 UIKit, TabBarController, NavigationController, TableView, UserDefaults, NSCache, SafariServices, SwiftLint, MVC
 
