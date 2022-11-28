@@ -24,7 +24,7 @@ final class NewsListViewController: NewsDataLoadingViewController {
     /// По окончании запроса в сеть принимает false.
     var isRefreshing = false
     
-    // MARK: Lifecycle
+    // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
