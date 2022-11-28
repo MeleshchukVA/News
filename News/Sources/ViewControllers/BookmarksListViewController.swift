@@ -14,7 +14,7 @@ final class BookmarksListViewController: NewsDataLoadingViewController {
     let tableView = UITableView()
     var bookmarks: [Article] = []
     
-    // MARK: Lifecycle
+    // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
