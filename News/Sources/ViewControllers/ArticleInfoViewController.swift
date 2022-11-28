@@ -20,10 +20,9 @@ final class ArticleInfoViewController: NewsDataLoadingViewController {
     let authorLabel = NewsBodyLabel(textAlignment: .left)
     let dateLabel = NewsBodyLabel(textAlignment: .left)
     let sourceButton = NewsButton(color: .systemBlue, title: "Источник")
-    var article: Article!
+    var article: Article?
     
-    // MARK: Initializers
-    
+    // MARK: Init
     init(article: Article) {
         super.init(nibName: nil, bundle: nil)
         self.article = article
@@ -33,8 +32,7 @@ final class ArticleInfoViewController: NewsDataLoadingViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Lifecycle
-    
+    // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,7 +64,10 @@ private extension ArticleInfoViewController {
     }
     
     func addArticleToBookmarks(bookmark: [Article]) {
-        let bookmark = Article(title: article.title, url: article.url)
+        let bookmark = Article(
+            title: article?.title ?? "",
+            url: article?.url
+        )
         
         PersistenceManager.updateWith(bookmark: bookmark, actionType: .add) { [weak self] error in
             guard let self = self else { return }
@@ -88,16 +89,16 @@ private extension ArticleInfoViewController {
     }
     
     func configureUIElements() {
-        imageView.downloadImage(fromURL: article.urlToImage ?? UrlStrings.placeholderUrlImage)
-        titleLabel.text = article.title
-        descriptionLabel.text = article.description ?? "Читайте подробности на сайте."
-        authorLabel.text = article.author ?? "Автор не указан"
-        dateLabel.text = (article.publishedAt?.convertToDisplayFormat() ?? "N/A")
+        imageView.downloadImage(fromURL: article?.urlToImage ?? UrlStrings.placeholderUrlImage)
+        titleLabel.text = article?.title
+        descriptionLabel.text = article?.description ?? "Читайте подробности на сайте."
+        authorLabel.text = article?.author ?? "Автор не указан"
+        dateLabel.text = (article?.publishedAt?.convertToDisplayFormat() ?? "N/A")
         sourceButton.addTarget(self, action: #selector(sourceButtonTapped), for: .touchUpInside)
     }
     
-    func presentSafariVC(for article: Article) {
-        guard let url = URL(string: article.url ?? UrlStrings.urlNotFound) else { return }
+    func presentSafariVC(for article: Article?) {
+        guard let url = URL(string: article?.url ?? UrlStrings.urlNotFound) else { return }
         
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)
