@@ -13,6 +13,16 @@ final class BookmarksListViewController: NewsDataLoadingViewController {
     // MARK: Properties
     let tableView = UITableView()
     var bookmarks: [Article] = []
+    var filteredBookmarks: [Article] = []
+    private lazy var searchController = UISearchController(searchResultsController: nil)
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
     
     // MARK: Override methods
     override func viewDidLoad() {
@@ -20,6 +30,7 @@ final class BookmarksListViewController: NewsDataLoadingViewController {
         
         configureViewController()
         configureTableView()
+        configureSearchContoller()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +52,7 @@ private extension BookmarksListViewController {
     
     func configureTableView() {
         view.addSubview(tableView)
-
+        
         tableView.frame = view.bounds
         tableView.rowHeight = 80
         tableView.delegate = self
@@ -52,21 +63,25 @@ private extension BookmarksListViewController {
         )
         tableView.removeExcessCells()
     }
-
+    
     func getBookmarks() {
         PersistenceManager.retrieveBookmarks { [weak self] result in
             guard let self = self else { return }
-
+            
             switch result {
             case .success(let bookmarks):
                 self.updateUI(with: bookmarks)
-
+                
             case .failure(let error):
-                self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
+                self.presentNewsAlert(
+                    title: "Что-то пошло не так",
+                    message: error.rawValue,
+                    buttonTitle: "Ок"
+                )
             }
         }
     }
-
+    
     func updateUI(with bookmarks: [Article]) {
         if bookmarks.isEmpty {
             self.showEmptyStateView(with: "Здесь отображаются ваши закладки.", in: self.view)
@@ -85,9 +100,13 @@ private extension BookmarksListViewController {
 extension BookmarksListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return self.filteredBookmarks.count
+        }
+        
         return bookmarks.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: BookmarkTableViewCell.reuseID
@@ -98,9 +117,16 @@ extension BookmarksListViewController: UITableViewDataSource {
             )
             return cell
         }
-        let bookmark = bookmarks[indexPath.row]
-        cell.setupCell(bookmark: bookmark)
-        return cell
+        
+        if isFiltering {
+            let fileteredBookmark = filteredBookmarks[indexPath.row]
+            cell.setupCell(bookmark: fileteredBookmark)
+            return cell
+        } else {
+            let bookmark = bookmarks[indexPath.row]
+            cell.setupCell(bookmark: bookmark)
+            return cell
+        }
     }
 }
 
@@ -115,7 +141,7 @@ extension BookmarksListViewController: UITableViewDelegate {
         let safariViewController = SFSafariViewController(url: url)
         present(safariViewController, animated: true)
     }
-
+    
     // Swipe to delete.
     func tableView(
         _ tableView: UITableView,
@@ -123,7 +149,7 @@ extension BookmarksListViewController: UITableViewDelegate {
         forRowAt indexPath: IndexPath
     ) {
         guard editingStyle == .delete else { return }
-
+        
         PersistenceManager.updateWith(bookmark: bookmarks[indexPath.row], actionType: .remove) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else {
@@ -138,5 +164,31 @@ extension BookmarksListViewController: UITableViewDelegate {
         if bookmarks.isEmpty {
             showEmptyStateView(with: "Здесь отображаются ваши закладки.", in: self.view)
         }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension BookmarksListViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text ?? "")
+    }
+    
+    func filterContentForSearchText(_ searchText: String) {
+      filteredBookmarks = bookmarks.filter { (bookmark: Article) -> Bool in
+          return bookmark.title.lowercased().contains(searchText.lowercased())
+      }
+      
+      tableView.reloadData()
+    }
+    
+    func configureSearchContoller() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Поиск"
+        searchController.definesPresentationContext = true
+        navigationItem.searchController = searchController
     }
 }
