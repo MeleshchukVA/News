@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookmarkTableViewCell: UITableViewCell {
+final class BookmarkTableViewCell: UITableViewCell {
     
     static let reuseID = "BookmarkCell"
     let titleLabel = NewsTitleLabel(textAlignment: .left, fontSize: 18)

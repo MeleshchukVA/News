@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsAlertContainerView: UIView {
+final class NewsAlertContainerView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

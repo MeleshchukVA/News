@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsImageView: UIImageView {
+final class NewsImageView: UIImageView {
     
     // Кэш для сохранения изображений.
     let cache = NetworkManager.shared.cache

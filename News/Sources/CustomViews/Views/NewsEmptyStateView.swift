@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsEmptyStateView: UIView {
+final class NewsEmptyStateView: UIView {
     
     let messageLabel = NewsTitleLabel(textAlignment: .center, fontSize: 28)
     let logoImageView = UIImageView()

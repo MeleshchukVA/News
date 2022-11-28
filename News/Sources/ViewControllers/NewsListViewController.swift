@@ -7,10 +7,9 @@
 
 import UIKit
 
-class NewsListViewController: NewsDataLoadingViewController {
+final class NewsListViewController: NewsDataLoadingViewController {
     
-    // MARK: - Properties.
-
+    // MARK: Properties
     let tableView = UITableView()
     var articles: [Article] = []
     var page = 1
@@ -25,8 +24,7 @@ class NewsListViewController: NewsDataLoadingViewController {
     /// По окончании запроса в сеть принимает false.
     var isRefreshing = false
     
-    // MARK: - Lifecycle.
-
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,16 +32,20 @@ class NewsListViewController: NewsDataLoadingViewController {
         configureTableView()
         getArticles(page: page)
     }
-    
-    // MARK: - Private methods.
+}
 
-    private func configureViewController() {
+// MARK: - Private extnsion
+
+private extension NewsListViewController {
+    
+    // MARK: - Methods
+    func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Новости"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configureTableView() {
+    func configureTableView() {
         view.addSubview(tableView)
         
         tableView.frame = view.bounds
@@ -55,26 +57,12 @@ class NewsListViewController: NewsDataLoadingViewController {
         configureRefreshControl()
     }
     
-    private func configureRefreshControl() {
+    func configureRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
     }
     
-    @objc private func didPullToRefresh() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        
-        self.articles.removeAll()
-        isRefreshing = true
-        isPaginating = false
-        hasMoreArticles = true
-        page = 1
-        
-        getArticles(page: page)
-    }
-    
-    private func getArticles(page: Int) {
+    func getArticles(page: Int) {
         showLoadingView()
         isPaginating = true
         
@@ -95,7 +83,7 @@ class NewsListViewController: NewsDataLoadingViewController {
         }
     }
     
-    private func updateUI(with articles: [Article]) {
+    func updateUI(with articles: [Article]) {
         if articles.count < 20 { self.hasMoreArticles = false }
         self.articles.append(contentsOf: articles)
         
@@ -105,9 +93,24 @@ class NewsListViewController: NewsDataLoadingViewController {
             self.view.bringSubviewToFront(self.tableView)
         }
     }
+    
+    // MARK: Actions
+    @objc func didPullToRefresh() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        
+        self.articles.removeAll()
+        isRefreshing = true
+        isPaginating = false
+        hasMoreArticles = true
+        page = 1
+        
+        getArticles(page: page)
+    }
 }
 
-// MARK: - UITableViewDataSource.
+// MARK: - UITableViewDataSource
 
 extension NewsListViewController: UITableViewDataSource {
     
@@ -135,7 +138,7 @@ extension NewsListViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate.
+// MARK: - UITableViewDelegate
 
 extension NewsListViewController: UITableViewDelegate {
     

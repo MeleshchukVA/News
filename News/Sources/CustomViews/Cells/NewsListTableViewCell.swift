@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsListTableViewCell: UITableViewCell {
+final class NewsListTableViewCell: UITableViewCell {
     
     let newsImageView = NewsImageView(frame: .zero)
     let newsTitleLabel = NewsTitleLabel(textAlignment: .left, fontSize: 18)

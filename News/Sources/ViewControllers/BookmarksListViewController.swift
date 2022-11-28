@@ -8,15 +8,13 @@
 import UIKit
 import SafariServices
 
-class BookmarksListViewController: NewsDataLoadingViewController {
+final class BookmarksListViewController: NewsDataLoadingViewController {
     
-    // MARK: - Properties.
-    
+    // MARK: Properties
     let tableView = UITableView()
     var bookmarks: [Article] = []
     
-    // MARK: - Lifecycle.
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,16 +26,20 @@ class BookmarksListViewController: NewsDataLoadingViewController {
         super.viewWillAppear(animated)
         getBookmarks()
     }
+}
+
+// MARK: - Private extension
+
+private extension BookmarksListViewController {
     
-    // MARK: - Private methods.
-    
-    private func configureViewController() {
+    // MARK: - Methods
+    func configureViewController() {
         view.backgroundColor = .systemBackground
         title = "Закладки"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func configureTableView() {
+    func configureTableView() {
         view.addSubview(tableView)
 
         tableView.frame = view.bounds
@@ -48,7 +50,7 @@ class BookmarksListViewController: NewsDataLoadingViewController {
         tableView.removeExcessCells()
     }
 
-    private func getBookmarks() {
+    func getBookmarks() {
         PersistenceManager.retrieveBookmarks { [weak self] result in
             guard let self = self else { return }
 
@@ -62,7 +64,7 @@ class BookmarksListViewController: NewsDataLoadingViewController {
         }
     }
 
-    private func updateUI(with bookmarks: [Article]) {
+    func updateUI(with bookmarks: [Article]) {
         if bookmarks.isEmpty {
             self.showEmptyStateView(with: "Здесь отображаются ваши закладки.", in: self.view)
         } else {
@@ -75,7 +77,7 @@ class BookmarksListViewController: NewsDataLoadingViewController {
     }
 }
 
-// MARK: - UITableViewDataSource.
+// MARK: - UITableViewDataSource
 
 extension BookmarksListViewController: UITableViewDataSource {
     
@@ -99,7 +101,7 @@ extension BookmarksListViewController: UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDelegate.
+// MARK: - UITableViewDelegate
 
 extension BookmarksListViewController: UITableViewDelegate {
     

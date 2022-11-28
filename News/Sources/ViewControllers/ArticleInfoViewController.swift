@@ -8,10 +8,9 @@
 import UIKit
 import SafariServices
 
-class ArticleInfoViewController: NewsDataLoadingViewController {
+final class ArticleInfoViewController: NewsDataLoadingViewController {
     
-    // MARK: - Properties.
-
+    // MARK: Properties
     let scrollView = UIScrollView()
     let contentView = UIView()
     let labelsStackView = UIStackView()
@@ -23,19 +22,19 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
     let sourceButton = NewsButton(color: .systemBlue, title: "Источник")
     var article: Article!
     
-    // MARK: - Initializers.
-
+    // MARK: Initializers
+    
     init(article: Article) {
         super.init(nibName: nil, bundle: nil)
         self.article = article
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Lifecycle.
-
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,10 +44,14 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         configureUIElements()
         configureStackView()
     }
+}
+
+// MARK: - Private extension
+
+private extension ArticleInfoViewController {
     
-    // MARK: - Private methods.
-    
-    private func configureViewController() {
+    // MARK: Methods
+    func configureViewController() {
         view.backgroundColor = .systemBackground
         
         let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismssVC))
@@ -62,28 +65,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         navigationItem.leftBarButtonItem = addButton
     }
     
-    @objc private func dismssVC() {
-        dismiss(animated: true)
-    }
-    
-    @objc private func addButtonTapped() {
-        showLoadingView()
-        
-        NetworkManager.shared.getArticleInfo { [weak self] result in
-            guard let self = self else { return }
-            self.dismissLoadingView()
-            
-            switch result {
-            case .success(let bookmark):
-                self.addArticleToBookmarks(bookmark: bookmark)
-                
-            case .failure(let error):
-                self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
-            }
-        }
-    }
-    
-    private func addArticleToBookmarks(bookmark: [Article]) {
+    func addArticleToBookmarks(bookmark: [Article]) {
         let bookmark = Article(title: article.title, url: article.url)
         
         PersistenceManager.updateWith(bookmark: bookmark, actionType: .add) { [weak self] error in
@@ -105,7 +87,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         }
     }
     
-    private func configureUIElements() {
+    func configureUIElements() {
         imageView.downloadImage(fromURL: article.urlToImage ?? UrlStrings.placeholderUrlImage)
         titleLabel.text = article.title
         descriptionLabel.text = article.description ?? "Читайте подробности на сайте."
@@ -114,18 +96,14 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         sourceButton.addTarget(self, action: #selector(sourceButtonTapped), for: .touchUpInside)
     }
     
-    @objc private func sourceButtonTapped() {
-        presentSafariVC(for: article)
-    }
-    
-    private func presentSafariVC(for article: Article) {
+    func presentSafariVC(for article: Article) {
         guard let url = URL(string: article.url ?? UrlStrings.urlNotFound) else { return }
         
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)
     }
     
-    private func configureScrollView() {
+    func configureScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         scrollView.pinToEdges(of: view)
@@ -137,7 +115,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         ])
     }
     
-    private func configureStackView() {
+    func configureStackView() {
         labelsStackView.axis = .vertical
         labelsStackView.distribution = .equalCentering
 
@@ -165,7 +143,7 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         ])
     }
     
-    private func configureLayout() {
+    func configureLayout() {
         contentView.addSubviews(imageView, labelsStackView, sourceButton)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -187,5 +165,31 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
             sourceButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             sourceButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    // MARK: Actions
+    @objc func dismssVC() {
+        dismiss(animated: true)
+    }
+    
+    @objc func addButtonTapped() {
+        showLoadingView()
+        
+        NetworkManager.shared.getArticleInfo { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let bookmark):
+                self.addArticleToBookmarks(bookmark: bookmark)
+                
+            case .failure(let error):
+                self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
+            }
+        }
+    }
+    
+    @objc func sourceButtonTapped() {
+        presentSafariVC(for: article)
     }
 }

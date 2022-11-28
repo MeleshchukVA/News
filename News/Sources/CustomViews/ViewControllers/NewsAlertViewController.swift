@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsAlertViewController: UIViewController {
+final class NewsAlertViewController: UIViewController {
     
     let containerView = NewsAlertContainerView()
     let titleLabel = NewsTitleLabel(textAlignment: .center, fontSize: 20)
