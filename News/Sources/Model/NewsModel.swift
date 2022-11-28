@@ -8,10 +8,12 @@
 import Foundation
 
 struct News: Codable {
+    
     let articles: [Article]
 }
 
 struct Article: Codable, Hashable {
+    
     var author: String?
     let title: String
     var description: String?

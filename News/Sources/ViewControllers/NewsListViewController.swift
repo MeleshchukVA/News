@@ -115,9 +115,17 @@ extension NewsListViewController: UITableViewDataSource {
         return articles.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsListTableViewCell.reuseID) as? NewsListTableViewCell else {
-            let cell = NewsListTableViewCell(style: .default, reuseIdentifier: NewsListTableViewCell.reuseID)
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: NewsListTableViewCell.reuseID
+        ) as? NewsListTableViewCell else {
+            let cell = NewsListTableViewCell(
+                style: .default,
+                reuseIdentifier: NewsListTableViewCell.reuseID
+            )
             return cell
         }
         let article = articles[indexPath.row]

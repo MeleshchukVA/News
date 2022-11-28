@@ -107,18 +107,12 @@
 		3F7112AE27F5D64A00E0174D /* News */ = {
 			isa = PBXGroup;
 			children = (
-				3F7112CB27F5FE2A00E0174D /* CustomViews */,
-				3F88C61327F6C7B60073070B /* Extensions */,
-				3F7112D627F60DC100E0174D /* Managers */,
-				3F7112D027F60ACE00E0174D /* Model */,
-				3F7112C327F5DB7600E0174D /* Support */,
-				3F7112D327F60BBA00E0174D /* Utilities */,
-				3F7112C427F5FB5500E0174D /* ViewControllers */,
+				3FD153972934D0330060C00F /* Sources */,
 			);
 			path = News;
 			sourceTree = "<group>";
 		};
-		3F7112C327F5DB7600E0174D /* Support */ = {
+		3F7112C327F5DB7600E0174D /* App */ = {
 			isa = PBXGroup;
 			children = (
 				3F7112AF27F5D64A00E0174D /* AppDelegate.swift */,
@@ -127,7 +121,7 @@
 				3F7112BA27F5D64E00E0174D /* LaunchScreen.storyboard */,
 				3F7112BD27F5D64E00E0174D /* Info.plist */,
 			);
-			path = Support;
+			path = App;
 			sourceTree = "<group>";
 		};
 		3F7112C427F5FB5500E0174D /* ViewControllers */ = {
@@ -252,6 +246,20 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		3FD153972934D0330060C00F /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3F7112C327F5DB7600E0174D /* App */,
+				3F7112CB27F5FE2A00E0174D /* CustomViews */,
+				3F88C61327F6C7B60073070B /* Extensions */,
+				3F7112D627F60DC100E0174D /* Managers */,
+				3F7112D027F60ACE00E0174D /* Model */,
+				3F7112D327F60BBA00E0174D /* Utilities */,
+				3F7112C427F5FB5500E0174D /* ViewControllers */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
 		4F7E5020B6327299D5FDD29F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,8 +284,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3F7112C027F5D64E00E0174D /* Build configuration list for PBXNativeTarget "News" */;
 			buildPhases = (
-				3F7112CF27F603BB00E0174D /* SwiftLint Run */,
 				930C65D461853602DCD0103D /* [CP] Check Pods Manifest.lock */,
+				3F7112CF27F603BB00E0174D /* SwiftLint Run */,
 				3F7112A827F5D64A00E0174D /* Sources */,
 				3F7112A927F5D64A00E0174D /* Frameworks */,
 				3F7112AA27F5D64A00E0174D /* Resources */,
@@ -339,6 +347,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		3F7112CF27F603BB00E0174D /* SwiftLint Run */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -551,7 +560,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F3GPX8Z3U8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = News/Support/Info.plist;
+				INFOPLIST_FILE = News/Sources/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -579,7 +588,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F3GPX8Z3U8;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = News/Support/Info.plist;
+				INFOPLIST_FILE = News/Sources/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

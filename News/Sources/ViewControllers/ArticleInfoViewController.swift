@@ -54,7 +54,11 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
         let doneButton = UIBarButtonItem(title: "Готово", style: .done, target: self, action: #selector(dismssVC))
         navigationItem.rightBarButtonItem = doneButton
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addButtonTapped))
+        let addButton = UIBarButtonItem(
+            barButtonSystemItem: .bookmarks,
+            target: self,
+            action: #selector(addButtonTapped)
+        )
         navigationItem.leftBarButtonItem = addButton
     }
     
@@ -86,10 +90,18 @@ class ArticleInfoViewController: NewsDataLoadingViewController {
             guard let self = self else { return }
             
             guard let error = error else {
-                self.presentNewsAlert(title: "Добавлено", message: "Вы добавили эту новость в закладки.", buttonTitle: "Ок")
+                self.presentNewsAlert(
+                    title: "Добавлено",
+                    message: "Вы добавили эту новость в закладки.",
+                    buttonTitle: "Ок"
+                )
                 return
             }
-            self.presentNewsAlert(title: "Что-то пошло не так", message: error.rawValue, buttonTitle: "Ок")
+            self.presentNewsAlert(
+                title: "Что-то пошло не так",
+                message: error.rawValue,
+                buttonTitle: "Ок"
+            )
         }
     }
     

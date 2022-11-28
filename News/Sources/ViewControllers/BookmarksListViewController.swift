@@ -84,8 +84,13 @@ extension BookmarksListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkTableViewCell.reuseID) as? BookmarkTableViewCell else {
-            let cell = BookmarkTableViewCell(style: .default, reuseIdentifier: BookmarkTableViewCell.reuseID)
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: BookmarkTableViewCell.reuseID
+        ) as? BookmarkTableViewCell else {
+            let cell = BookmarkTableViewCell(
+                style: .default,
+                reuseIdentifier: BookmarkTableViewCell.reuseID
+            )
             return cell
         }
         let bookmark = bookmarks[indexPath.row]
@@ -107,7 +112,11 @@ extension BookmarksListViewController: UITableViewDelegate {
     }
 
     // Swipe to delete.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        commit editingStyle: UITableViewCell.EditingStyle,
+        forRowAt indexPath: IndexPath
+    ) {
         guard editingStyle == .delete else { return }
 
         PersistenceManager.updateWith(bookmark: bookmarks[indexPath.row], actionType: .remove) { [weak self] error in

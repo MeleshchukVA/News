@@ -8,15 +8,22 @@
 import Foundation
 
 enum PersistenceActionType {
-    case add, remove
+    
+    case add
+    case remove
 }
 
 enum PersistenceManager {
+    
     static private let defaults = UserDefaults.standard
 
     enum Keys { static let bookmarks = "bookmarks" }
 
-    static func updateWith(bookmark: Article, actionType: PersistenceActionType, completed: @escaping (NewsError?) -> Void) {
+    static func updateWith(
+        bookmark: Article,
+        actionType: PersistenceActionType,
+        completed: @escaping (NewsError?
+        ) -> Void) {
         retrieveBookmarks { result in
             switch result {
             case .success(let bookmarks):

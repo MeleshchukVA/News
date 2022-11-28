@@ -15,7 +15,7 @@ class NetworkManager {
     
     private let baseURL = "https://newsapi.org/v2/top-headlines?country=RU"
     private let apiKey = "e8dc364306c14351bda035195d810b5c"
-
+    
     private init() {}
     
     // Функция загружает массив [Article] с учетом постраничной загрузки и декодирует его в JSON.
@@ -32,17 +32,17 @@ class NetworkManager {
                 completion(.failure(.unableToComplete))
                 return
             }
-
+            
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
                 completion(.failure(.invalidResponce))
                 return
             }
-
+            
             guard let data = data else {
                 completion(.failure(.invalidData))
                 return
             }
-
+            
             do {
                 let result = try self.decoder.decode(News.self, from: data)
                 completion(.success(result.articles))
@@ -50,39 +50,40 @@ class NetworkManager {
                 completion(.failure(.invalidData))
             }
         }
-
+        
         task.resume()
     }
     
     // Функция загружает изображение с API
     func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
         let cacheKey = NSString(string: urlString)
-
+        
         // Кэшируем картинки, чтобы не делать каждый раз запрос в сеть для них.
         if let image = cache.object(forKey: cacheKey) {
             completed(image)
             return
         }
-
+        
         guard let url = URL(string: urlString) else {
             completed(nil)
             return
         }
-
+        
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, responce, error in
             guard let self = self,
                   error == nil,
                   let responce = responce as? HTTPURLResponse, responce.statusCode == 200,
                   let data = data,
-                  let image = UIImage(data: data) else {
-                      completed(nil)
-                      return
-                  }
+                  let image = UIImage(data: data)
+            else {
+                completed(nil)
+                return
+            }
             
             self.cache.setObject(image, forKey: cacheKey)
             completed(image)
         }
-
+        
         task.resume()
     }
     

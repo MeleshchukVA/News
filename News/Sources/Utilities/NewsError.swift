@@ -8,6 +8,7 @@
 import Foundation
 
 enum NewsError: String, Error {
+    
     case unableToComplete = "Невозможно завершить ваш запрос. Проверьте подключение к сети интернет."
     case invalidResponce = "Ошибка соединения с сервером. Попробуйте еще раз."
     case invalidData = "Некорректные данные от сервера. Попробуйте еще раз."

@@ -45,7 +45,10 @@ class NewsEmptyStateView: UIView {
     }
 
     private func configureLogoImageView() {
-        logoImageView.image = UIImage(systemName: "books.vertical", withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemGray4))
+        logoImageView.image = UIImage(
+            systemName: "books.vertical",
+            withConfiguration: UIImage.SymbolConfiguration(hierarchicalColor: .systemGray4)
+        )
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([

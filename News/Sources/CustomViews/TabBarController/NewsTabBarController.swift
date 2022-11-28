@@ -17,14 +17,22 @@ class NewsTabBarController: UITabBarController {
 
     func createNewsNavigationController() -> UINavigationController {
         let newsListViewController = NewsListViewController()
-        newsListViewController.tabBarItem = UITabBarItem(title: "Новости", image: UIImage(systemName: "newspaper"), tag: 0)
+        newsListViewController.tabBarItem = UITabBarItem(
+            title: "Новости",
+            image: UIImage(systemName: "newspaper"),
+            tag: 0
+        )
 
         return UINavigationController(rootViewController: newsListViewController)
     }
 
     func createBookmarksNavigationController() -> UINavigationController {
         let bookmarksListViewController = BookmarksListViewController()
-        bookmarksListViewController.tabBarItem = UITabBarItem(title: "Закладки", image: UIImage(systemName: "book"), tag: 0)
+        bookmarksListViewController.tabBarItem = UITabBarItem(
+            title: "Закладки",
+            image: UIImage(systemName: "book"),
+            tag: 0
+        )
 
         return UINavigationController(rootViewController: bookmarksListViewController)
     }
