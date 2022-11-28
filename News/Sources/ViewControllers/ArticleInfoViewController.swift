@@ -66,7 +66,8 @@ private extension ArticleInfoViewController {
     func addArticleToBookmarks(bookmark: [Article]) {
         let bookmark = Article(
             title: article?.title ?? "",
-            url: article?.url
+            url: article?.url,
+            urlToImage: article?.urlToImage
         )
         
         PersistenceManager.updateWith(bookmark: bookmark, actionType: .add) { [weak self] error in

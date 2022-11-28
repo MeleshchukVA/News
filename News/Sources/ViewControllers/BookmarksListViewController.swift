@@ -46,7 +46,10 @@ private extension BookmarksListViewController {
         tableView.rowHeight = 80
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.reuseID)
+        tableView.register(
+            BookmarkTableViewCell.self,
+            forCellReuseIdentifier: BookmarkTableViewCell.reuseID
+        )
         tableView.removeExcessCells()
     }
 
