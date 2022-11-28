@@ -1,12 +1,38 @@
+warning_threshold: 15
+file_length:
+  warning: 800
+  error: 1500
+
 disabled_rules:
 - unused_optional_binding
-- line_length
 - trailing_whitespace
+- legacy_constructor
+- function_body_length
 
 excluded:
 - Pods
+- ShoppingCart/Products
+- ShoppingCart/Pods
+- ShoppingCart/Frameworks
+- ShoppingCart/Sources/📱App/AppDelegate.swift
+- ShoppingCart/Sources/📱App/SceneDelegate.swift
 
 opt_in_rules:
 - operator_usage_whitespace
 - vertical_whitespace_between_cases
 - vertical_whitespace_closing_braces
+- force_unwrapping
+
+custom_rules:
+  space_after_main_type:
+    name: "No space after main type"
+    regex: '(class|struct|enum|extension)((?-s)\s.*\{$\n)(?!^\s*$)'
+    message: "Empty line required after main declarations"
+    severity: warning
+  
+  whitespace_between_functions:
+    include: "*.swift"
+    regex: '([}]\n[[:blank:]]*func\s\w+(\(.*\))\s[{])'
+    name: "Single line space between functions"
+    message: "Single line space violation: Expected single whitespace between functions"
+    severity: warning
